@@ -23,7 +23,6 @@ import TableTurns from './TableTurns.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {getClients} from '../store/actions/actionsClients.js';
 
-
 const Dashboard = () => {
   const listClients = useSelector(state => state.clients);
   const dispatch = useDispatch();

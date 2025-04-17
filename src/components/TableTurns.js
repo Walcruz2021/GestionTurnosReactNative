@@ -14,6 +14,7 @@ import rutaBackend from '../ruteBack/vbleDeploy';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import {getTurnos, deleteTurno} from '../store/actions/actionsTurnos';
 import ModalEditTurn from './Modal/ModalEditTurn';
+import ModalDescription from './Modal/ModalDescription';
 const TableTurns = () => {
   const [turnos, setTurnos] = useState([]); // Estado para guardar los turnos
   const idCompany = '67ca2004e7c4d209a060f90b';
@@ -21,11 +22,13 @@ const TableTurns = () => {
   const [showAlertConf, setShowAlertConf] = useState(false);
   const [showAlertDel, setShowAlertDel] = useState(false);
   const [stateDataEdit, setStateDataEdit] = useState();
+  const [stateDataDescription, setStateDataDescription] = useState();
   const [stateDataDel, setDataDel] = useState({
     index: '',
     idTurn: '',
   });
   const [modalEditTurno, setModalEditTurno] = useState(false);
+  const [modalDescription, setModalDescription] = useState(false);
   const dispatch = useDispatch();
   const [expandedRow, setExpandedRow] = useState(null);
   // useEffect(() => {
@@ -54,8 +57,13 @@ const TableTurns = () => {
   };
 
   const handleEditTurn = dataTurn => {
-    setStateDataEdit(dataTurn)
-    setModalEditTurno(true)
+    setStateDataEdit(dataTurn);
+    setModalEditTurno(true);
+  };
+
+  const handleDescription = dataTurn => {
+    setStateDataDescription(dataTurn);
+    setModalDescription(true);
   };
 
   return (
@@ -66,6 +74,14 @@ const TableTurns = () => {
         stateDataEdit={stateDataEdit}
         setStateDataEdit={setStateDataEdit}
       />
+
+      <ModalDescription
+        modalDescription={modalDescription}
+        setModalDescription={setModalDescription}
+        stateDataDescription={stateDataDescription}
+        setStateDataDescription={setStateDataDescription}
+      />
+
       <AwesomeAlert
         show={showAlertConf}
         showProgress={false}
@@ -157,6 +173,14 @@ const TableTurns = () => {
                             onPress={() => handleEditTurn(turn)}>
                             <Image
                               source={require('../icons/edit2.png')}
+                              style={styles.image}
+                            />
+                          </TouchableOpacity>
+
+                          <TouchableOpacity
+                            onPress={() => handleDescription(turn)}>
+                            <Image
+                              source={require('../icons/info.png')}
                               style={styles.image}
                             />
                           </TouchableOpacity>
